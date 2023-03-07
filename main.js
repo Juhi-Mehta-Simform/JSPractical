@@ -1,12 +1,25 @@
 function display(val){
     const display = document.getElementById('result');
+    
+    let string = display.value;
+    if (val == '-' || val == '+' || val == '*' || val == '/') {
+        if (string.charAt(string.length - 1) == '-' || string.charAt(string.length - 1) == '+' || string.charAt(string.length - 1) == '*' || string.charAt(string.length - 1) == '/') {
+            display.value = display.value.substr(0, display.value.length - 1);
+        }
+    }
     display.value += val;
 }
 
 function solve(){
     const display = document.getElementById('result');
-    let x = eval(display.value);
-    display.value = x;
+    let string = display.value;
+    if(string.includes("/0")){
+            display.value = "undefined";
+    }
+    else{
+        let x = eval(display.value);
+        display.value = x;
+    }
 }
 
 function clr(){
@@ -116,16 +129,24 @@ var key = ['1','2','3','4','5','6','7','8','9','0','+','-','*','/','%',')','('];
 
 function checkPressedKey(e)
 {
+    const display = document.getElementById('result');
     let val = e.key
+    let string = display.value;
+    if (val == '-' || val == '+' || val == '*' || val == '/' || val == '%') {
+        if (string.charAt(string.length - 1) == '-' || string.charAt(string.length - 1) == '+' || string.charAt(string.length - 1) == '*' || string.charAt(string.length - 1) == '/' || string.charAt(string.length - 1) == '%') {
+            display.value = display.value.substr(0, display.value.length - 1);
+        }
+    }
     for(let i=0; i<key.length; i++)
     {
         if(key[i]==val)
         {
             return true;
         }
-        else if("Enter"==val){
+        else if(val=='Enter'){
             solve();
         }
     }
     return false;
 }
+ 
